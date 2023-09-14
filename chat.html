@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Chatbot</title>
+    <style>
+       /* CSS for chatbot container */
+       .chat-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* CSS for chat messages */
+        .chat-message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        /* CSS for user and bot messages */
+        .user-message {
+            text-align: right;
+            background-color: #00A2FF; /* Blue color similar to Instagram */
+            color: white;
+        }
+
+        .bot-message {
+            text-align: left;
+            background-color: #EFEFEF; /* Light gray color for bot messages */
+        }
+
+        /* CSS for user input */
+        .user-input {
+            display: flex;
+        }
+
+        .user-input input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .user-input button {
+            padding: 10px;
+            background-color: #00A2FF;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container" id="chat-container">
+        <div class="chat-messages" id="chat-messages">
+            <div class="chat-message bot-message">
+                <p>Hello! I'm your chatbot. How can I assist you today?</p>
+            </div>
+        </div>
+    </div>
+    <div class="user-input">
+        <input type="text" id="user-input" placeholder="Type your message" onkeypress="sendMessage(event)">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        // JavaScript for chat functionality
+        function sendMessage(event) {
+            if (event && event.keyCode !== 13) return; // Only send on Enter key press
+
+            const userInput = document.getElementById('user-input').value;
+            if (userInput.trim() === "") return; // Don't send empty messages
+
+            // Create a user message
+            const userMessage = document.createElement('div');
+            userMessage.className = 'chat-message user-message';
+            userMessage.innerHTML = `<p>${userInput}</p>`;
+
+            // Append the user message to the chat messages container
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.appendChild(userMessage);
+
+            // Clear the user input field
+            document.getElementById('user-input').value = "";
+
+            // Scroll to the bottom of the chat messages container
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Simulate a bot response (you can replace this with actual bot logic)
+            setTimeout(() => {
+                const botMessage = document.createElement('div');
+                botMessage.className = 'chat-message bot-message';
+                botMessage.innerHTML = "<p>Sorry, I'm just a demo bot. I don't have real responses.</p>";
+
+                // Append the bot message to the chat messages container
+                chatMessages.appendChild(botMessage);
+
+                // Scroll to the bottom again after receiving a message
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000); // Simulate a delay for the bot's response
+        }
+    </script>
+</body>
+</html>
